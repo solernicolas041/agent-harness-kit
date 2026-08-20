@@ -157,6 +157,8 @@ button.act[aria-pressed="true"]{background:var(--accent);border-color:var(--acce
 
 @media (prefers-reduced-motion: reduce){*{transition:none !important}}
 
+.quote{font-size:1.02rem;color:var(--ink);max-width:62ch}
+.attrib{font-family:"IBM Plex Mono",monospace;font-size:.7rem;letter-spacing:.03em;color:var(--muted);font-style:normal}
 footer{margin-top:3.5rem;padding-top:1.5rem;border-top:1px solid var(--rule);color:var(--muted);font-size:.88rem;display:flex;flex-direction:column;gap:.4rem}
 </style>
 </head>
@@ -167,7 +169,7 @@ footer{margin-top:3.5rem;padding-top:1.5rem;border-top:1px solid var(--rule);col
 
 <div class="topbar no-print">
   <div>
-    <p class="eyebrow">Fill-in canvases · after Addy Osmani</p>
+    <p class="eyebrow">Fill-in canvases · derived from Addy Osmani's essays</p>
     <h1>Harness &amp; Loop Canvas</h1>
     <p class="lede">Two blank canvases for designing an AI agent and the loop that runs it. Write straight into the boxes, or print them and use a pen. No code, no account.</p>
   </div>
@@ -254,7 +256,7 @@ footer{margin-top:3.5rem;padding-top:1.5rem;border-top:1px solid var(--rule);col
 
     <div class="cell ratchet full">
       <div class="cell-head"><span class="cell-n">↻</span><span class="cell-t">The Ratchet — mistakes turned into rules</span></div>
-      <p class="cell-q">This box is the whole method. A harness gets good by collecting scars, not by being designed well on day one.</p>
+      <p class="cell-q">This box is the whole method. A harness gets good by collecting scars, not by being designed well on day one. <span class="attrib">&ldquo;The ratchet&rdquo; is Osmani's term.</span></p>
       <p class="cell-hint">date · what went wrong · the rule it became · where that rule now lives</p>
       <div class="fill" contenteditable="true" data-k="h8" data-ph="a mistake is only allowed to happen once"></div>
     </div>
@@ -305,7 +307,7 @@ footer{margin-top:3.5rem;padding-top:1.5rem;border-top:1px solid var(--rule);col
       <div class="cell-head"><span class="cell-n">4</span><span class="cell-t">Skills</span></div>
       <p class="cell-q">What am I tired of re-explaining?</p>
       <p class="cell-hint">knowledge file → the explanation it replaces · the thing it keeps getting wrong</p>
-      <div class="fill" contenteditable="true" data-k="l4" data-ph="stop explaining:"></div>
+      <div class="fill" contenteditable="true" data-k="l4" data-ph="tired of repeating:"></div>
     </div>
 
     <div class="cell wide">
@@ -324,7 +326,7 @@ footer{margin-top:3.5rem;padding-top:1.5rem;border-top:1px solid var(--rule);col
 
     <div class="cell gate full">
       <div class="cell-head"><span class="cell-n">7</span><span class="cell-t">Human gate — the part that never automates</span></div>
-      <p class="cell-q">A loop running unattended is a loop making mistakes unattended.</p>
+      <p class="cell-q">&ldquo;A loop running unattended is also a loop making mistakes unattended.&rdquo; <span class="attrib">&mdash; Addy Osmani</span></p>
       <p class="cell-hint">where finished work lands for me · actions that are NEVER automatic · how I find out the loop died quietly</p>
       <div class="fill" contenteditable="true" data-k="l7" data-ph="lands for me in:"></div>
     </div>
@@ -344,8 +346,8 @@ footer{margin-top:3.5rem;padding-top:1.5rem;border-top:1px solid var(--rule);col
 </div>
 
 <footer>
-  <p><strong>Build the loop. Stay the engineer.</strong></p>
-  <p class="no-print">Canvases derived from Addy Osmani's <a href="https://addyosmani.com/blog/agent-harness-engineering/">Agent Harness Engineering</a> and <a href="https://addyosmani.com/blog/loop-engineering/">Loop Engineering</a>. MIT.</p>
+  <p class="quote">&ldquo;Build the loop. But build it like someone who intends to stay the engineer, not just the person who presses go.&rdquo;<br><span class="attrib">Addy Osmani, <em>Loop Engineering</em></span></p>
+  <p class="no-print">An independent work, derived from the ideas in Addy Osmani's <a href="https://addyosmani.com/blog/agent-harness-engineering/">Agent Harness Engineering</a> and <a href="https://addyosmani.com/blog/loop-engineering/">Loop Engineering</a>. Read those first &mdash; they are the source, and they are better. Quoted lines are marked and credited; the rest is our own wording. Not affiliated with or endorsed by Addy Osmani. Our material is MIT; his essays remain his.</p>
 </footer>
 
 </div>

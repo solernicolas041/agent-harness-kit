@@ -70,7 +70,7 @@ Open `templates/loop-canvas.md`. Now you're wrapping the working harness in some
 
 Three sections people skip, and the skip is always what breaks:
 
-**§2 State — the memory file.** The AI remembers nothing between runs. Nothing. Every Monday it wakes up with amnesia. So the memory has to be a file on disk that it reads first and writes last. Without it, your loop redoes the same work forever and never finishes anything.
+**§2 State — the memory file.** The AI remembers nothing between runs. Nothing. Every Monday it wakes up with amnesia — so put its memory in a file it reads first and writes last. Without one, your loop redoes the same work forever and never finishes anything.
 
 **§6 Maker / Checker — two agents, not one.** An AI asked to grade its own work will pass itself. Every time. So one agent does the work and a *second* one, starting fresh, tries to prove the first one wrong. See `diagrams/maker-checker.mmd`. This costs more. It is the single line item worth paying for.
 
@@ -92,10 +92,13 @@ Then answer the last question honestly: **where does this break first?** You alr
 | **Grades itself** | Everything it produces is "excellent" | Separate checker agent, fresh context |
 | **Forgets** | Redoes Monday's work every Monday | Memory file on disk |
 | **Drowns** | Good for ten minutes, incoherent by minute forty | Park big outputs in files, keep the conversation short |
-| **Too many tools** | Confused, picks the wrong one | Cut to ten. Ten focused beats fifty overlapping |
+| **Too many tools** | Confused, picks the wrong one | Cut the list down until the agent can hold it in its head |
 | **You stop reading** | Everything looks fine and you have no idea what changed | Read the output. This one never automates |
 
-That last row is the real one. A loop running unattended is a loop making mistakes unattended.
+That last row is the real one:
+
+> "A loop running unattended is also a loop making mistakes unattended."
+> — Addy Osmani, *Loop Engineering*
 
 ---
 
@@ -119,6 +122,7 @@ Eight boxes. No code.
 - Addy Osmani — [Agent Harness Engineering](https://addyosmani.com/blog/agent-harness-engineering/)
 - Addy Osmani — [Loop Engineering](https://addyosmani.com/blog/loop-engineering/)
 
-The canvases are those two essays turned into blanks. Credit theirs; the blanks are the contribution.
+Read those first. They are the source, and they are better. The canvases are our own wording; quoted lines are marked. Full attribution in [CREDITS.md](CREDITS.md).
 
-> Build the loop. Stay the engineer.
+> "Build the loop. But build it like someone who intends to stay the engineer, not just the person who presses go."
+> — Addy Osmani, *Loop Engineering*

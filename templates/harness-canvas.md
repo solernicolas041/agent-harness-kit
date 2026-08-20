@@ -28,7 +28,8 @@
 | ______ | ______ | ______ |
 | ______ | ______ | ______ |
 
-**Count:** ______ tools. Ten focused tools beat fifty overlapping ones.
+**Count:** ______ tools.
+> "Ten focused tools outperform fifty overlapping ones because the model can hold the menu in its head." — Addy Osmani, *Agent Harness Engineering*
 **Removed because it confused the agent:** ______
 
 ## 3 · Infrastructure — where it works
@@ -77,11 +78,15 @@
 |---|---|
 | ______ | ______ |
 
-> Success is silent. Failures are loud. If your guardrails congratulate you on every run, you'll stop reading them.
+> "success is silent, failures are verbose." — Addy Osmani, *Agent Harness Engineering*
+>
+> If your guardrails congratulate you on every run, you'll stop reading them.
 
 ---
 
 ## The Ratchet — mistakes turned into rules
+
+*"The ratchet" is Osmani's term for this; see [CREDITS](../CREDITS.md).*
 
 | Date | What went wrong | The rule it became | Where the rule lives |
 |---|---|---|---|

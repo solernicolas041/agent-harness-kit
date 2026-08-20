@@ -139,10 +139,18 @@ examples/
 
 1. **A rule is earned, never invented.** Every line in your rules file traces to something that actually went wrong. Delete the rest.
 2. **The maker never grades itself.** One agent works, a different one — fresh, with no memory of the first — tries to prove it wrong.
-3. **Memory lives on disk.** The model forgets everything between runs. If it isn't in a file, it didn't happen.
+3. **Memory lives on disk.** The model starts every run with no recollection of the last one. If it isn't in a file, it didn't happen.
 
 ---
 
+## Credits
+
+The ideas here are Addy Osmani's, from [Agent Harness Engineering](https://addyosmani.com/blog/agent-harness-engineering/) and [Loop Engineering](https://addyosmani.com/blog/loop-engineering/). **Read those first** — they are the source, and they are better than this summary of them.
+
+This repo is an independent work: the canvas format, the questions in each box, the worked example and the wording are ours. Where we quote him, the quote is marked and credited. See [CREDITS.md](CREDITS.md).
+
+Not affiliated with, sponsored by, or endorsed by Addy Osmani.
+
 ## License
 
-MIT. Take it, fork it, fill it in.
+Our material is MIT — take it, fork it, fill it in. Addy Osmani's essays are his and are not covered by this licence.

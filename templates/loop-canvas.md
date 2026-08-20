@@ -20,7 +20,8 @@
 
 ## 2 · State — the memory on disk
 
-> The agent forgets everything between runs. Memory lives in a file, not in the conversation.
+> "the model forgets everything between runs so the memory has to be on disk and not in the context."
+> — Addy Osmani, *Loop Engineering*
 
 | Question | Your answer |
 |---|---|
@@ -37,7 +38,7 @@
 | Two runs at once would collide over | ______ |
 | Cleanup after a run | ______ |
 
-## 4 · Skills — stop explaining the project every time
+## 4 · Skills — the things you are tired of repeating
 
 | Skill / knowledge file | What it saves you from re-explaining |
 |---|---|
