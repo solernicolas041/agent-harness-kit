@@ -10,7 +10,9 @@ Based on Addy Osmani's [Agent Harness Engineering](https://addyosmani.com/blog/a
 
 ## The canvases
 
-Open [`canvas/index.html`](canvas/index.html) in any browser — double-click the file, that's it. Works offline.
+**Use it now: [solernicolas041.github.io/agent-harness-kit/canvas/](https://solernicolas041.github.io/agent-harness-kit/canvas/)**
+
+Or open [`canvas/index.html`](canvas/index.html) locally — double-click the file, that's it. Works offline.
 
 - Type straight into the boxes; your text saves in that browser
 - **Show a filled example** fills both canvases with a worked example so you can see what "done" looks like
