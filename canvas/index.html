@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Harness, Loop &amp; Job Sheet Canvas</title>
+<title>Harness &amp; Loop Canvas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -169,9 +169,9 @@ footer{margin-top:3.5rem;padding-top:1.5rem;border-top:1px solid var(--rule);col
 
 <div class="topbar no-print">
   <div>
-    <p class="eyebrow">Three fill-in canvases · two derived from Addy Osmani's essays</p>
-    <h1>Harness, Loop &amp; Job Sheet</h1>
-    <p class="lede">Three blank canvases: what the agent <em>is</em>, what makes it <em>run</em>, and what it may touch on <em>one real account</em>. Write straight into the boxes, or print them and use a pen. No code, no account.</p>
+    <p class="eyebrow">Fill-in canvases · derived from Addy Osmani's essays</p>
+    <h1>Harness &amp; Loop Canvas</h1>
+    <p class="lede">Two blank canvases for designing an AI agent and the loop that runs it. Write straight into the boxes, or print them and use a pen. No code, no account.</p>
   </div>
   <div class="actions">
     <button class="act" type="button" id="example" aria-pressed="false">Show a filled example</button>
@@ -184,7 +184,7 @@ footer{margin-top:3.5rem;padding-top:1.5rem;border-top:1px solid var(--rule);col
   <span><b>1.</b> Click any box and type.</span>
   <span><b>2.</b> Your text saves in this browser.</span>
   <span><b>3.</b> A box you can't fill is a gap in your design, not a formatting problem.</span>
-  <span><b>4.</b> Leave the guardrail boxes empty on day one — you haven't made the mistakes yet.</span>
+  <span><b>4.</b> Leave §1 rules empty on day one — you haven't made the mistakes yet.</span>
 </div>
 
 <!-- ============================ HARNESS ============================ -->
@@ -345,81 +345,6 @@ footer{margin-top:3.5rem;padding-top:1.5rem;border-top:1px solid var(--rule);col
   </div>
 </div>
 
-
-<!-- =========================== JOB SHEET =========================== -->
-<div class="canvas-block">
-  <div class="canvas-head">
-    <div>
-      <p class="eyebrow">Canvas 03</p>
-      <h2>The Job Sheet</h2>
-    </div>
-    <p class="sub">One sheet per account the agent works on. Canvas 01 says what the agent is. This says what it is allowed to touch on <em>this</em> client, with <em>this</em> money.</p>
-  </div>
-
-  <div class="idbar">
-    <div class="idcell"><label>Client / entity</label><div class="fill" contenteditable="true" data-k="j-name" data-ph="who the work is for" style="min-height:30px;background-image:none"></div></div>
-    <div class="idcell"><label>Owning agent</label><div class="fill" contenteditable="true" data-k="j-agent" data-ph="one name, not a team" style="min-height:30px;background-image:none"></div></div>
-    <div class="idcell"><label>Filled on</label><div class="fill" contenteditable="true" data-k="j-date" data-ph="today" style="min-height:30px;background-image:none"></div></div>
-  </div>
-
-  <div class="grid jobsheet">
-
-    <div class="cell wide">
-      <div class="cell-head"><span class="cell-n">1</span><span class="cell-t">Scope</span></div>
-      <p class="cell-q">Exactly which accounts, and what is the one thing being defended?</p>
-      <p class="cell-hint">account IDs, in full · core objective in one line · what is NOT in this sheet</p>
-      <div class="fill" contenteditable="true" data-k="j1" data-ph="accounts:"></div>
-    </div>
-
-    <div class="cell wide">
-      <div class="cell-head"><span class="cell-n">2</span><span class="cell-t">Read rights</span></div>
-      <p class="cell-q">What may it look at without asking anyone?</p>
-      <p class="cell-hint">the pull it must always run first · spend windows · what reading costs money or rate limit</p>
-      <div class="fill" contenteditable="true" data-k="j2" data-ph="may read, alone:"></div>
-    </div>
-
-    <div class="cell gate wide">
-      <div class="cell-head"><span class="cell-n">3</span><span class="cell-t">Write rights — every one of them gated</span></div>
-      <p class="cell-q">A read right is a habit. A write right is a decision. Name the gate for each.</p>
-      <p class="cell-hint">action → who approves → hard ceiling per operation · outbound messages: draft only? · a ceiling is not an approval, you need both</p>
-      <div class="fill" contenteditable="true" data-k="j3" data-ph="budget change ->"></div>
-    </div>
-
-    <div class="cell wide">
-      <div class="cell-head"><span class="cell-n">4</span><span class="cell-t">Thresholds</span></div>
-      <p class="cell-q">The numbers a decision is allowed to lean on.</p>
-      <p class="cell-hint">currency · target cost per result · target return · monthly ceiling · alert rule</p>
-      <div class="fill" contenteditable="true" data-k="j4" data-ph="currency:"></div>
-    </div>
-
-    <div class="cell full">
-      <div class="cell-head"><span class="cell-n">5</span><span class="cell-t">Triggers</span></div>
-      <p class="cell-q">What wakes it up on this account, and what does it load first?</p>
-      <p class="cell-hint">event → the sheet, rules and registers to read before acting · the check for "someone already handled this"</p>
-      <div class="fill" contenteditable="true" data-k="j5" data-ph="wakes on:"></div>
-    </div>
-
-    <div class="cell gate full">
-      <div class="cell-head"><span class="cell-n">6</span><span class="cell-t">Guardrails — and the scars they came from</span></div>
-      <p class="cell-q">A line only lands here <em>after</em> something went wrong. Do not pre-fill this from imagination — you will invent the wrong walls and miss the real one.</p>
-      <p class="cell-hint">absolute prohibitions, each with the incident behind it · date · what it cost · settled subjects nobody may reopen</p>
-      <div class="fill" contenteditable="true" data-k="j6" data-ph="never:"></div>
-    </div>
-
-    <div class="cell ratchet full">
-      <div class="cell-head"><span class="cell-n">?</span><span class="cell-t">The blanks you could not fill</span></div>
-      <p class="cell-q">This box is why the sheet works. A number you do not have is written down as missing, never guessed. An invented threshold is more dangerous than an absent one: the agent will act on it.</p>
-      <p class="cell-hint">to confirm — need X · who can answer · what is being decided blind until they do</p>
-      <div class="fill" contenteditable="true" data-k="j7" data-ph="to confirm — need:"></div>
-    </div>
-
-  </div>
-  <div class="lapbar">
-    <span>? a blank is a finding, not a formatting problem</span>
-    <span>read rights are given · write rights are granted, one at a time</span>
-  </div>
-</div>
-
 <footer>
   <p class="quote">&ldquo;Build the loop. But build it like someone who intends to stay the engineer, not just the person who presses go.&rdquo;<br><span class="attrib">Addy Osmani, <em>Loop Engineering</em></span></p>
   <p class="no-print">An independent work, derived from the ideas in Addy Osmani's <a href="https://addyosmani.com/blog/agent-harness-engineering/">Agent Harness Engineering</a> and <a href="https://addyosmani.com/blog/loop-engineering/">Loop Engineering</a>. Read those first &mdash; they are the source, and they are better. Quoted lines are marked and credited; the rest is our own wording. Not affiliated with or endorsed by Addy Osmani. Our material is MIT; his essays remain his.</p>
@@ -481,17 +406,7 @@ footer{margin-top:3.5rem;padding-top:1.5rem;border-top:1px solid var(--rule);col
     l5: 'maker: agent "fixer" — swap dead links per the replacement policy\nchecker: agent "auditor", fresh session — opens every replacement and confirms it loads and matches the old link text. Never sees the maker\'s reasoning.\ndisagree twice: leave the link alone, flag it for me',
     l6: 'GitHub -> open a pull request -> reversible: yes\nGitHub -> merge to the live site -> reversible: NO, so I do it, never the loop',
     l7: 'lands for me in: a pull request titled "link rot — week of X"\nexpires unreviewed after 14 days\nnever automatic: merging, deleting a post, editing outside /posts\nI find out it broke when: no PR and no "all clean" note by Monday noon',
-    l8: '1. trigger fires Monday 7am\n2. reads state: 140 of 200 posts checked\n3. scans the remaining 60, finds 4 dead links\n4. opens branch linkrot/2026-08-19\n5. maker swaps 4 links for archive snapshots\n6. checker opens all 4, rejects 1 (the snapshot is itself a 404)\n7. opens a PR with 3 fixes, flags the 4th\n8. lands in my inbox as a GitHub PR\n9. writes state: 200/200 checked, 1 unresolved\n\nbreaks first: archive.org rate-limits and the checker calls good links dead\ncost of one lap: a few cents, and 2 minutes of my Monday',
-    'j-name': 'Northwind Bikes (fictional) — paid search, 2 accounts',
-    'j-agent': 'ads-sentinel — one agent owns this sheet',
-    'j-date': 'day one',
-    j1: 'accounts: 111-222-3333 (brand) · 444-555-6666 (non-brand)\ncore objective: hold cost per lead under target without passing the monthly ceiling\nNOT in this sheet: the website, the CRM, anything the client edits themselves',
-    j2: 'always first, before any narrow question: the full account scan, 30 days\nthen: spend 7/30/90 days · structure · search terms · change history · disapprovals\ncosts money: nothing. Costs rate limit: the scan — cache it for an hour',
-    j3: 'budget change -> human approval, AND a +10% hard ceiling per operation. The ceiling is not the approval; you need both.\nbids / keywords / ads / structure -> human approval, never in the background\nemail or chat to the client -> draft only, zero auto-send\nreports -> write freely, but dated files, never overwrite the client sheet',
-    j4: 'currency: AUD\ntarget cost per lead: 40 on non-brand · none agreed on brand — see the last box\ntarget return: n/a, this is lead gen\nmonthly ceiling: 3,000 across both accounts\nalert: spend pace over the ceiling -> regulate the budget and notify. A cost-per-lead spike alone is NOT an alert — check the conversion count first.',
-    j5: 'wakes on: client message · inbound email · daily pacing check · monthly recap\nloads first: this sheet, the ads rules file, the budget register\nbefore acting: check the shared log — if another agent already handled it, continue their work, do not restart it',
-    j6: 'never change a budget without the human gate, even under the ceiling\nnever send the client anything directly — draft only\nnever reopen the tracking setup: that argument was settled, and reopening it restarts it\nnever quote extra work — it is inside the retainer already\nnever reason on a rolling 30 days: the account reports on calendar months, and so does the client\n\nthe scars behind those lines:\nsmall account, budget taken from 2 to 10 a day on 0 conversions in 71 clicks. The direction was right. The size, on no evidence, was not. That is where the +10% ceiling comes from.\nconversions fell 35-40% on three campaigns and nothing was lost: a double count had been removed, then the algorithm re-learned. A drop gets decomposed BEFORE it gets announced.',
-    j7: 'to confirm — need: the agreed cost per lead on the brand account. There is none on file.\nwho can answer: the client, on the next call\ndecided blind until then: nothing. An absent target is not a target of zero — no rule may lean on that number, and inventing one would be worse than having none.'
+    l8: '1. trigger fires Monday 7am\n2. reads state: 140 of 200 posts checked\n3. scans the remaining 60, finds 4 dead links\n4. opens branch linkrot/2026-08-19\n5. maker swaps 4 links for archive snapshots\n6. checker opens all 4, rejects 1 (the snapshot is itself a 404)\n7. opens a PR with 3 fixes, flags the 4th\n8. lands in my inbox as a GitHub PR\n9. writes state: 200/200 checked, 1 unresolved\n\nbreaks first: archive.org rate-limits and the checker calls good links dead\ncost of one lap: a few cents, and 2 minutes of my Monday'
   };
 
   var exBtn = document.getElementById('example');
@@ -511,7 +426,7 @@ footer{margin-top:3.5rem;padding-top:1.5rem;border-top:1px solid var(--rule);col
   });
 
   document.getElementById('clear').addEventListener('click', function () {
-    if (!confirm('Clear all three canvases?')) return;
+    if (!confirm('Clear both canvases?')) return;
     apply({});
     mine = null;
     exBtn.setAttribute('aria-pressed', 'false');

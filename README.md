@@ -1,8 +1,8 @@
 # Agent Harness & Loop Kit
 
-Three fill-in-the-blank canvases: what an AI agent **is**, what makes it **run**, and what it is allowed to touch on **one real account** — without writing code.
+Two fill-in-the-blank canvases for designing an AI agent and the loop that runs it — **without writing code**.
 
-The first two are based on Addy Osmani's [Agent Harness Engineering](https://addyosmani.com/blog/agent-harness-engineering/) and [Loop Engineering](https://addyosmani.com/blog/loop-engineering/) — the essays explain the ideas, this repo turns them into boxes you fill in on a Tuesday afternoon. The third is ours: the sheet you fill in per client, once the agent is real and the money is someone else's.
+Based on Addy Osmani's [Agent Harness Engineering](https://addyosmani.com/blog/agent-harness-engineering/) and [Loop Engineering](https://addyosmani.com/blog/loop-engineering/). The essays explain the ideas; this repo turns them into boxes you fill in on a Tuesday afternoon.
 
 **No install. No account. No code.**
 
@@ -15,10 +15,10 @@ The first two are based on Addy Osmani's [Agent Harness Engineering](https://add
 Or open [`canvas/index.html`](canvas/index.html) locally — double-click the file, that's it. Works offline.
 
 - Type straight into the boxes; your text saves in that browser
-- **Show a filled example** fills all three canvases with worked examples so you can see what "done" looks like
+- **Show a filled example** fills both canvases with a worked example so you can see what "done" looks like
 - **Print / Save as PDF** gives you one A3 landscape sheet per canvas, ready for a pen
 
-Prefer plain text? The same three canvases live as Markdown in [`templates/`](templates/).
+Prefer plain text? The same two canvases live as Markdown in [`templates/`](templates/).
 
 ```
 CANVAS 01 — THE HARNESS          what the agent reads, may touch, may never do
@@ -32,16 +32,7 @@ CANVAS 02 — THE LOOP             what makes it run without you
   5 Maker & Checker        6 Connectors
   7 Human gate — the part that never automates
   ↻ One lap, on paper, before you build anything
-
-CANVAS 03 — THE JOB SHEET        what it may touch on ONE account, with real money
-  1 Scope       2 Read rights
-  3 Write rights — every one of them gated      4 Thresholds
-  5 Triggers
-  6 Guardrails — and the scars they came from
-  ? The blanks you could not fill
 ```
-
-Canvas 01 is written once per agent. Canvas 03 is written once per client, and it is the one that keeps an agent from doing something expensive on an account it barely knows.
 
 ---
 
@@ -58,7 +49,6 @@ Canvas 01 is written once per agent. Canvas 03 is written once per client, and i
 | 4. Run it by hand ten times | — | a week |
 | 5. Design the loop | [`canvas/index.html`](canvas/index.html), Canvas 02 | 30 min |
 | 6. See it done | [`examples/filled-loop-canvas.md`](examples/filled-loop-canvas.md) | 5 min |
-| 7. Scope it to one account | [`canvas/index.html`](canvas/index.html), Canvas 03 | 20 min |
 
 Step 4 is not optional and not a formality. The rules that make a harness work are the ones you write *after* watching it fail.
 
@@ -128,12 +118,11 @@ flowchart TB
 ## What's in the box
 
 ```
-canvas/index.html               the three canvases, fillable and printable
+canvas/index.html               the two canvases, fillable and printable
 GUIDE.md                        the method, six steps, no code
 templates/
   harness-canvas.md             7 sections - what the agent reads, uses, and may never do
   loop-canvas.md                7 sections - what makes it run without you
-  job-skill-template.md         5 sections - what it may touch on one client account
   AGENTS.md.template            the rules file, capped at 60 lines
   state.md.template             the memory that survives between runs
 diagrams/
