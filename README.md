@@ -15,6 +15,9 @@ Based on Addy Osmani's [Agent Harness Engineering](https://addyosmani.com/blog/a
 | 1. Read the method | [`GUIDE.md`](GUIDE.md) | 10 min |
 | 2. Design the harness | [`templates/harness-canvas.md`](templates/harness-canvas.md) | 30 min |
 | 3. Draw it | [`diagrams/harness-anatomy.mmd`](diagrams/harness-anatomy.mmd) → paste into [mermaid.live](https://mermaid.live) | 10 min |
+
+> Only the `.mmd` files are diagram source. The canvases in `templates/` are Markdown worksheets — mermaid.live will reject them.
+
 | 4. Run it by hand ten times | — | a week |
 | 5. Design the loop | [`templates/loop-canvas.md`](templates/loop-canvas.md) | 30 min |
 | 6. See it done | [`examples/filled-loop-canvas.md`](examples/filled-loop-canvas.md) | 5 min |

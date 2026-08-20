@@ -42,6 +42,8 @@ Two blanks matter more than the rest:
 
 Open `diagrams/harness-anatomy.mmd` in any text editor. It's a blank picture written as words. Replace each `______`, paste it into <https://mermaid.live>, and it draws itself. Free, no account.
 
+> **Only the `.mmd` files go into mermaid.live.** The canvases in `templates/` are worksheets — Markdown for a document, not diagram source. Pasting one into mermaid.live returns `No diagram type detected`.
+
 Colour the boxes as you go:
 
 - **green** — you have this, it works
