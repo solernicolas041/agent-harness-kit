@@ -1,8 +1,8 @@
 # Agent Harness & Loop Kit
 
-Two fill-in-the-blank canvases for designing an AI agent and the loop that runs it — **without writing code**.
+Fill-in-the-blank canvases for designing an AI agent, the loop that runs it, and the sheet that scopes it to one real account — **without writing code**.
 
-Based on Addy Osmani's [Agent Harness Engineering](https://addyosmani.com/blog/agent-harness-engineering/) and [Loop Engineering](https://addyosmani.com/blog/loop-engineering/). The essays explain the ideas; this repo turns them into boxes you fill in on a Tuesday afternoon.
+The first two are based on Addy Osmani's [Agent Harness Engineering](https://addyosmani.com/blog/agent-harness-engineering/) and [Loop Engineering](https://addyosmani.com/blog/loop-engineering/). The essays explain the ideas; this repo turns them into boxes you fill in on a Tuesday afternoon. The third is ours, and it starts where the essays stop: the day the agent is real and the money is someone else's.
 
 **No install. No account. No code.**
 
@@ -20,16 +20,6 @@ Or open [`canvas/index.html`](canvas/index.html) locally — double-click the fi
 
 Prefer plain text? The same two canvases live as Markdown in [`templates/`](templates/).
 
-### Job Sheet — a separate canvas, one per client
-
-**[solernicolas041.github.io/agent-harness-kit/job-sheet/](https://solernicolas041.github.io/agent-harness-kit/job-sheet/)** · [`job-sheet/index.html`](job-sheet/index.html)
-
-The two canvases above are written once per agent. This one is written once per *account*: what the agent may read on its own, what it may write and under whose approval, the numbers a decision may lean on, and the guardrails — each with the incident behind it.
-
-Its last box is the point of the exercise: **the blanks you could not fill.** A number you do not have is written down as missing, never guessed. An invented threshold is more dangerous than an absent one, because the agent will act on it.
-
-Markdown twin: [`templates/job-skill-template.md`](templates/job-skill-template.md).
-
 ```
 CANVAS 01 — THE HARNESS          what the agent reads, may touch, may never do
   1 Prompting   2 Tools   3 Infrastructure   4 Knowledge
@@ -46,6 +36,34 @@ CANVAS 02 — THE LOOP             what makes it run without you
 
 ---
 
+## The job sheet
+
+**Use it now: [solernicolas041.github.io/agent-harness-kit/job-sheet/](https://solernicolas041.github.io/agent-harness-kit/job-sheet/)**
+
+Or open [`job-sheet/index.html`](job-sheet/index.html) locally. Same boxes, same print sheet, its own page and its own link — so you can hand it to someone without handing over the whole kit.
+
+The two canvases above are filled in **once per agent**. This one is filled in **once per account**, and it answers the question that costs money when nobody wrote the answer down: *what is this agent allowed to touch here?*
+
+```
+THE JOB SHEET                    what it may touch on ONE account, with real money
+  1 Scope       2 Read rights
+  3 Write rights — every one of them gated      4 Thresholds
+  5 Triggers
+  6 Guardrails — and the scars they came from
+  ? The blanks you could not fill
+```
+
+Two rules make it worth filling in:
+
+- **A read right is a habit. A write right is a decision.** Box 3 makes you name the gate for each one — who approves it, and the hard ceiling per operation. A ceiling is not an approval; you need both.
+- **A blank is a finding, not a formatting problem.** Box 7 is where a number you don't have gets written down as missing, never guessed. An invented threshold is more dangerous than an absent one, because the agent will act on it.
+
+Box 6 stays empty on day one. A guardrail is written *after* an incident, not from imagination — otherwise you invent the wrong walls and miss the real one.
+
+Markdown twin: [`templates/job-skill-template.md`](templates/job-skill-template.md).
+
+---
+
 ## Start here
 
 | Step | File | Time |
@@ -59,6 +77,7 @@ CANVAS 02 — THE LOOP             what makes it run without you
 | 4. Run it by hand ten times | — | a week |
 | 5. Design the loop | [`canvas/index.html`](canvas/index.html), Canvas 02 | 30 min |
 | 6. See it done | [`examples/filled-loop-canvas.md`](examples/filled-loop-canvas.md) | 5 min |
+| 7. Scope it to one account | [`job-sheet/index.html`](job-sheet/index.html) | 20 min |
 
 Step 4 is not optional and not a formality. The rules that make a harness work are the ones you write *after* watching it fail.
 
@@ -129,10 +148,12 @@ flowchart TB
 
 ```
 canvas/index.html               the two canvases, fillable and printable
+job-sheet/index.html            the per-account sheet, fillable and printable
 GUIDE.md                        the method, six steps, no code
 templates/
   harness-canvas.md             7 sections - what the agent reads, uses, and may never do
   loop-canvas.md                7 sections - what makes it run without you
+  job-skill-template.md         5 sections - what it may touch on one client account
   AGENTS.md.template            the rules file, capped at 60 lines
   state.md.template             the memory that survives between runs
 diagrams/
