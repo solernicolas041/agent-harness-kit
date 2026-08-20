@@ -1,0 +1,312 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Job Sheet Canvas</title>
+<meta name="description" content="A fill-in-the-blank canvas for scoping what an AI agent may touch on one real client account.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --paper:#e9ecf0;
+  --sheet:#ffffff;
+  --ink:#14181f;
+  --ink-soft:#4a5361;
+  --muted:#8a949f;
+  --rule:#cfd6de;
+  --rule-soft:#e6eaf0;
+  --grid:rgba(20,24,31,.05);
+  --accent:#0a6ebd;
+  --accent-soft:#e6f0fa;
+  --human:#a06a10;
+  --human-soft:#fdf3e0;
+  --have:#2f7d32;
+  --written:#12408a;
+  --shadow:0 1px 2px rgba(20,24,31,.06), 0 10px 30px -20px rgba(20,24,31,.4);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0d1015;--sheet:#161b22;--ink:#e7ecf2;--ink-soft:#b3bdc9;--muted:#7f8b98;
+    --rule:#2c343f;--rule-soft:#212832;--grid:rgba(231,236,242,.05);
+    --accent:#5aa9ea;--accent-soft:#12283a;--human:#e0b063;--human-soft:#2a2116;--have:#7cc47f;
+    --written:#8ec5f5;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 34px -22px rgba(0,0,0,.95);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0d1015;--sheet:#161b22;--ink:#e7ecf2;--ink-soft:#b3bdc9;--muted:#7f8b98;
+  --rule:#2c343f;--rule-soft:#212832;--grid:rgba(231,236,242,.05);
+  --accent:#5aa9ea;--accent-soft:#12283a;--human:#e0b063;--human-soft:#2a2116;--have:#7cc47f;
+  --written:#8ec5f5;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 34px -22px rgba(0,0,0,.95);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background-color:var(--paper);
+  background-image:
+    repeating-linear-gradient(to right, var(--grid) 0 1px, transparent 1px 26px),
+    repeating-linear-gradient(to bottom, var(--grid) 0 1px, transparent 1px 26px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1500px;margin:0 auto;padding:clamp(1rem,3vw,2.5rem) clamp(.75rem,3vw,2rem) 5rem}
+
+h1,h2{font-family:"IBM Plex Sans Condensed", sans-serif;margin:0;line-height:1.1;text-wrap:balance}
+h1{font-size:clamp(2rem,5vw,3.1rem);font-weight:700;letter-spacing:-.01em}
+h2{font-size:clamp(1.35rem,3vw,1.85rem);font-weight:600}
+p{margin:0}
+a{color:var(--accent)}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:.68rem;font-weight:500;letter-spacing:.17em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- page header ---------- */
+.topbar{display:flex;flex-wrap:wrap;gap:1.25rem;align-items:flex-end;justify-content:space-between;padding-bottom:1.25rem;border-bottom:2px solid var(--ink)}
+.topbar .lede{color:var(--ink-soft);max-width:52ch;margin-top:.5rem}
+.actions{display:flex;gap:.5rem;flex-wrap:wrap}
+button.act{
+  font-family:"IBM Plex Mono",monospace;font-size:.74rem;letter-spacing:.04em;
+  background:var(--sheet);color:var(--ink);border:1px solid var(--rule);
+  border-radius:2px;padding:.5rem .85rem;cursor:pointer;transition:border-color .15s,color .15s;
+}
+button.act:hover{border-color:var(--accent);color:var(--accent)}
+button.act:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button.act.primary{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+button.act.primary:hover{opacity:.85;color:var(--sheet)}
+button.act[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+
+.howto{
+  display:flex;gap:.6rem 1.4rem;flex-wrap:wrap;align-items:baseline;
+  font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--ink-soft);
+  padding:.8rem 0 0;
+}
+.howto b{color:var(--accent);font-weight:600}
+
+/* ---------- canvas frame ---------- */
+.canvas-block{margin-top:2.75rem;display:flex;flex-direction:column;gap:.9rem}
+.canvas-head{display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;align-items:baseline;justify-content:space-between}
+.canvas-head .sub{color:var(--ink-soft);font-size:.95rem;max-width:60ch}
+
+.idbar{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0;
+  border:1.5px solid var(--ink);border-bottom:0;background:var(--sheet);
+}
+.idbar .idcell{padding:.6rem .85rem;border-right:1px solid var(--rule)}
+.idbar .idcell:last-child{border-right:0}
+.idbar label{display:block;font-family:"IBM Plex Mono",monospace;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.15rem}
+
+/* the grid: 7 blocks + ratchet, Business-Model-Canvas style */
+.grid{
+  display:grid;gap:0;border:1.5px solid var(--ink);background:var(--rule);
+  grid-template-columns:repeat(4,1fr);
+}
+.grid > .cell{background:var(--sheet);border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);min-height:190px}
+.cell{display:flex;flex-direction:column;padding:.75rem .85rem .85rem;gap:.4rem}
+.cell-head{display:flex;gap:.5rem;align-items:baseline}
+.cell-n{
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;font-weight:600;color:#fff;background:var(--ink);
+  border-radius:2px;padding:.05rem .35rem;flex:none;font-variant-numeric:tabular-nums;
+}
+.cell-t{font-family:"IBM Plex Sans Condensed",sans-serif;font-weight:600;font-size:1rem;line-height:1.2}
+.cell-q{font-size:.83rem;color:var(--ink-soft);font-style:italic}
+.cell-hint{font-family:"IBM Plex Mono",monospace;font-size:.66rem;line-height:1.7;color:var(--muted)}
+
+/* the writable area — ruled like a form */
+.fill{
+  flex:1;min-height:74px;margin-top:.15rem;padding:.15rem .1rem;
+  font-family:"IBM Plex Mono",monospace;font-size:.8rem;line-height:26px;
+  color:var(--written);
+  background-image:repeating-linear-gradient(to bottom, transparent 0 25px, var(--rule-soft) 25px 26px);
+  outline:0;white-space:pre-wrap;overflow-wrap:anywhere;
+}
+.fill:focus{background-color:var(--accent-soft)}
+.fill:empty::before{content:attr(data-ph);color:var(--muted);font-style:italic;opacity:.75}
+
+/* accents on the two cells that carry the most weight */
+.cell.gate{background:var(--human-soft)}
+.cell.gate .cell-n{background:var(--human)}
+.cell.ratchet{background:var(--accent-soft)}
+.cell.ratchet .cell-n{background:var(--accent)}
+
+/* wide blocks: the two that need room to actually write in */
+.grid > .wide{grid-column:span 2}
+.grid > .full{grid-column:1 / -1}
+
+/* loop layout: reads as a lap, numbers carry the order */
+.grid.loop > .cell{min-height:180px}
+.lapbar{
+  border:1.5px solid var(--ink);border-top:0;background:var(--ink);color:var(--sheet);
+  font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:.5rem .85rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+}
+
+@media (max-width:1080px){ .grid{grid-template-columns:repeat(2,1fr)} .grid > .wide{grid-column:span 2} }
+@media (max-width:620px){ .grid{grid-template-columns:1fr} .grid > .wide,.grid > .full{grid-column:span 1} }
+
+/* ---------- print: one canvas per landscape sheet ---------- */
+@media print{
+  @page{size:A3 landscape;margin:8mm}
+  :root{--paper:#fff;--sheet:#fff;--ink:#000;--ink-soft:#333;--muted:#666;--rule:#999;--rule-soft:#ddd;
+        --accent:#000;--accent-soft:#fff;--human-soft:#fff;--written:#000;--grid:transparent;--shadow:none}
+  body{background:#fff}
+  .no-print{display:none !important}
+  .canvas-block{margin-top:0;page-break-after:always;break-after:page}
+  .canvas-block:last-of-type{page-break-after:auto;break-after:auto}
+  .grid > .cell{min-height:150px}
+  .fill{background-image:repeating-linear-gradient(to bottom, transparent 0 25px, #ccc 25px 26px)}
+}
+
+@media (prefers-reduced-motion: reduce){*{transition:none !important}}
+
+.quote{font-size:1.02rem;color:var(--ink);max-width:62ch}
+.attrib{font-family:"IBM Plex Mono",monospace;font-size:.7rem;letter-spacing:.03em;color:var(--muted);font-style:normal}
+footer{margin-top:3.5rem;padding-top:1.5rem;border-top:1px solid var(--rule);color:var(--muted);font-size:.88rem;display:flex;flex-direction:column;gap:.4rem}
+</style></head>
+<body>
+<div class="wrap">
+
+<div class="topbar no-print">
+  <div>
+    <p class="eyebrow">Fill-in canvas · one sheet per client account</p>
+    <h1>The Job Sheet</h1>
+    <p class="lede">The Harness Canvas says what an agent <em>is</em>. The Loop Canvas says what makes it <em>run</em>. Neither says what it may touch on <em>one real account</em>, with money that belongs to someone else. This does.</p>
+  </div>
+  <div class="actions">
+    <button class="act" type="button" id="example" aria-pressed="false">Show a filled example</button>
+    <button class="act" type="button" id="clear">Clear</button>
+    <button class="act primary" type="button" id="print">Print / Save as PDF</button>
+  </div>
+</div>
+
+<div class="howto no-print">
+  <span><b>1.</b> Click any box and type.</span>
+  <span><b>2.</b> Your text saves in this browser.</span>
+  <span><b>3.</b> A blank you cannot fill is written down as missing, never guessed.</span>
+  <span><b>4.</b> Leave box 6 empty on day one &mdash; you haven't made the mistakes yet.</span>
+</div>
+
+<div class="canvas-block">
+  <div class="idbar">
+    <div class="idcell"><label>Client / entity</label><div class="fill" contenteditable="true" data-k="j-name" data-ph="who the work is for" style="min-height:30px;background-image:none"></div></div>
+    <div class="idcell"><label>Owning agent</label><div class="fill" contenteditable="true" data-k="j-agent" data-ph="one name, not a team" style="min-height:30px;background-image:none"></div></div>
+    <div class="idcell"><label>Filled on</label><div class="fill" contenteditable="true" data-k="j-date" data-ph="today" style="min-height:30px;background-image:none"></div></div>
+  </div>
+
+  <div class="grid jobsheet">
+
+    <div class="cell wide">
+      <div class="cell-head"><span class="cell-n">1</span><span class="cell-t">Scope</span></div>
+      <p class="cell-q">Exactly which accounts, and what is the one thing being defended?</p>
+      <p class="cell-hint">account IDs, in full · core objective in one line · what is NOT in this sheet</p>
+      <div class="fill" contenteditable="true" data-k="j1" data-ph="accounts:"></div>
+    </div>
+
+    <div class="cell wide">
+      <div class="cell-head"><span class="cell-n">2</span><span class="cell-t">Read rights</span></div>
+      <p class="cell-q">What may it look at without asking anyone?</p>
+      <p class="cell-hint">the pull it must always run first · spend windows · what reading costs money or rate limit</p>
+      <div class="fill" contenteditable="true" data-k="j2" data-ph="may read, alone:"></div>
+    </div>
+
+    <div class="cell gate wide">
+      <div class="cell-head"><span class="cell-n">3</span><span class="cell-t">Write rights &mdash; every one of them gated</span></div>
+      <p class="cell-q">A read right is a habit. A write right is a decision. Name the gate for each one.</p>
+      <p class="cell-hint">action &rarr; who approves &rarr; hard ceiling per operation · outbound messages: draft only? · a ceiling is not an approval, you need both</p>
+      <div class="fill" contenteditable="true" data-k="j3" data-ph="budget change ->"></div>
+    </div>
+
+    <div class="cell wide">
+      <div class="cell-head"><span class="cell-n">4</span><span class="cell-t">Thresholds</span></div>
+      <p class="cell-q">The numbers a decision is allowed to lean on.</p>
+      <p class="cell-hint">currency · target cost per result · target return · monthly ceiling · alert rule</p>
+      <div class="fill" contenteditable="true" data-k="j4" data-ph="currency:"></div>
+    </div>
+
+    <div class="cell full">
+      <div class="cell-head"><span class="cell-n">5</span><span class="cell-t">Triggers</span></div>
+      <p class="cell-q">What wakes it up on this account, and what does it load before acting?</p>
+      <p class="cell-hint">event &rarr; the sheets, rules and registers to read first · the check for "someone already handled this"</p>
+      <div class="fill" contenteditable="true" data-k="j5" data-ph="wakes on:"></div>
+    </div>
+
+    <div class="cell gate full">
+      <div class="cell-head"><span class="cell-n">6</span><span class="cell-t">Guardrails &mdash; and the scars they came from</span></div>
+      <p class="cell-q">A line only lands here <em>after</em> something went wrong. Do not pre-fill this from imagination &mdash; you will invent the wrong walls and miss the real one.</p>
+      <p class="cell-hint">absolute prohibitions, each with the incident behind it · date · what it cost · settled subjects nobody may reopen</p>
+      <div class="fill" contenteditable="true" data-k="j6" data-ph="never:"></div>
+    </div>
+
+    <div class="cell ratchet full">
+      <div class="cell-head"><span class="cell-n">?</span><span class="cell-t">The blanks you could not fill</span></div>
+      <p class="cell-q">This box is why the sheet works. A number you do not have is written down as missing, never guessed. An invented threshold is more dangerous than an absent one, because the agent will act on it.</p>
+      <p class="cell-hint">to confirm &mdash; need X · who can answer · what is being decided blind until they do</p>
+      <div class="fill" contenteditable="true" data-k="j7" data-ph="to confirm — need:"></div>
+    </div>
+
+  </div>
+  <div class="lapbar">
+    <span>? a blank is a finding, not a formatting problem</span>
+    <span>read rights are given · write rights are granted, one at a time</span>
+  </div>
+</div>
+
+<footer>
+  <p class="quote">One sheet per client. Written once, read by every agent and every human who touches that account &mdash; and rewritten the day one of them gets burned.</p>
+  <p class="no-print">Companion to the <a href="../canvas/">Harness &amp; Loop canvases</a>. Plain-text version: <a href="https://github.com/solernicolas041/agent-harness-kit/blob/main/templates/job-skill-template.md"><code>templates/job-skill-template.md</code></a>. MIT.</p>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var cells = Array.prototype.slice.call(document.querySelectorAll('.fill[data-k]'));
+  var KEY = 'job-sheet-canvas.v1';
+  function store(o){ try{localStorage.setItem(KEY,JSON.stringify(o));}catch(e){} }
+  function load(){ try{return JSON.parse(localStorage.getItem(KEY)||'{}');}catch(e){return {};} }
+  function snapshot(){ var o={}; cells.forEach(function(c){ if(c.innerText.trim()) o[c.dataset.k]=c.innerText; }); return o; }
+  function apply(d){ cells.forEach(function(c){ c.innerText=d[c.dataset.k]||''; }); }
+
+  apply(load());
+  cells.forEach(function(c){
+    c.addEventListener('input', function(){ store(snapshot()); });
+    c.addEventListener('paste', function(e){
+      e.preventDefault();
+      var t=(e.clipboardData||window.clipboardData).getData('text');
+      document.execCommand('insertText', false, t);
+    });
+  });
+
+  var EXAMPLE = {
+    'j-name': 'Northwind Bikes (fictional) \u2014 paid search, 2 accounts',
+    'j-agent': 'ads-sentinel \u2014 one agent owns this sheet',
+    'j-date': 'day one',
+    j1: 'accounts: 111-222-3333 (brand) \u00b7 444-555-6666 (non-brand)\ncore objective: hold cost per lead under target without passing the monthly ceiling\nNOT in this sheet: the website, the CRM, anything the client edits themselves',
+    j2: 'always first, before any narrow question: the full account scan, 30 days\nthen: spend 7/30/90 days \u00b7 structure \u00b7 search terms \u00b7 change history \u00b7 disapprovals\ncosts money: nothing. Costs rate limit: the scan \u2014 cache it for an hour',
+    j3: 'budget change -> human approval, AND a +10% hard ceiling per operation. The ceiling is not the approval; you need both.\nbids / keywords / ads / structure -> human approval, never in the background\nemail or chat to the client -> draft only, zero auto-send\nreports -> write freely, but dated files, never overwrite the client sheet',
+    j4: 'currency: AUD\ntarget cost per lead: 40 on non-brand \u00b7 none agreed on brand \u2014 see the last box\ntarget return: n/a, this is lead gen\nmonthly ceiling: 3,000 across both accounts\nalert: spend pace over the ceiling -> regulate the budget and notify. A cost-per-lead spike alone is NOT an alert \u2014 check the conversion count first.',
+    j5: 'wakes on: client message \u00b7 inbound email \u00b7 daily pacing check \u00b7 monthly recap\nloads first: this sheet, the ads rules file, the budget register\nbefore acting: check the shared log \u2014 if another agent already handled it, continue their work, do not restart it',
+    j6: 'never change a budget without the human gate, even under the ceiling\nnever send the client anything directly \u2014 draft only\nnever reopen the tracking setup: that argument was settled, and reopening it restarts it\nnever quote extra work \u2014 it is inside the retainer already\nnever reason on a rolling 30 days: the account reports on calendar months, and so does the client\n\nthe scars behind those lines:\nsmall account, budget taken from 2 to 10 a day on 0 conversions in 71 clicks. The direction was right. The size, on no evidence, was not. That is where the +10% ceiling comes from.\nconversions fell 35-40% on three campaigns and nothing was lost: a double count had been removed, then the algorithm re-learned. A drop gets decomposed BEFORE it gets announced.',
+    j7: 'to confirm \u2014 need: the agreed cost per lead on the brand account. There is none on file.\nwho can answer: the client, on the next call\ndecided blind until then: nothing. An absent target is not a target of zero \u2014 no rule may lean on that number, and inventing one would be worse than having none.'
+  };
+
+  var exBtn = document.getElementById('example'), mine = null;
+  exBtn.addEventListener('click', function () {
+    if (exBtn.getAttribute('aria-pressed') === 'true') {
+      apply(mine || {}); exBtn.setAttribute('aria-pressed','false');
+      exBtn.textContent = 'Show a filled example';
+    } else {
+      mine = snapshot(); apply(EXAMPLE); exBtn.setAttribute('aria-pressed','true');
+      exBtn.textContent = 'Back to my sheet';
+    }
+  });
+  document.getElementById('clear').addEventListener('click', function () {
+    if (!confirm('Clear this sheet?')) return;
+    apply({}); mine = null; store({});
+    exBtn.setAttribute('aria-pressed','false');
+    exBtn.textContent = 'Show a filled example';
+  });
+  document.getElementById('print').addEventListener('click', function(){ window.print(); });
+})();
+</script>
+
+</body>
+</html>

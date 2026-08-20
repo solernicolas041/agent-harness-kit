@@ -20,6 +20,16 @@ Or open [`canvas/index.html`](canvas/index.html) locally — double-click the fi
 
 Prefer plain text? The same two canvases live as Markdown in [`templates/`](templates/).
 
+### Job Sheet — a separate canvas, one per client
+
+**[solernicolas041.github.io/agent-harness-kit/job-sheet/](https://solernicolas041.github.io/agent-harness-kit/job-sheet/)** · [`job-sheet/index.html`](job-sheet/index.html)
+
+The two canvases above are written once per agent. This one is written once per *account*: what the agent may read on its own, what it may write and under whose approval, the numbers a decision may lean on, and the guardrails — each with the incident behind it.
+
+Its last box is the point of the exercise: **the blanks you could not fill.** A number you do not have is written down as missing, never guessed. An invented threshold is more dangerous than an absent one, because the agent will act on it.
+
+Markdown twin: [`templates/job-skill-template.md`](templates/job-skill-template.md).
+
 ```
 CANVAS 01 — THE HARNESS          what the agent reads, may touch, may never do
   1 Prompting   2 Tools   3 Infrastructure   4 Knowledge
