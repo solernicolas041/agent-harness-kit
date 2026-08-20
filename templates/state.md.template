@@ -1,0 +1,22 @@
+# State — ______
+
+<!-- The loop's memory. The agent reads this first and writes to it last.
+     No secrets. No client data. Facts only. -->
+
+**Last run:** ______
+**Status:** green / blocked / needs human
+
+## Done
+- [x] ______
+
+## In progress
+- [ ] ______ — blocked on ______
+
+## Next
+- [ ] ______
+
+## Notes for the next lap
+- ______
+
+## Needs a human
+- ______

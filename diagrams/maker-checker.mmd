@@ -1,0 +1,22 @@
+%% Maker / checker separation - the single rule that stops an agent grading its own homework.
+flowchart TB
+    subgraph BAD["WRONG - one agent does everything"]
+        direction TB
+        B1["Agent writes the work"] --> B2["Same agent says 'looks good'"] --> B3["Ships<br/>nobody caught the mistake"]
+    end
+
+    subgraph GOOD["RIGHT - the maker never grades itself"]
+        direction TB
+        G1["MAKER agent<br/>only writes"] --> G2["CHECKER agent<br/>fresh context, only reviews<br/>tries to REFUTE the work"]
+        G2 -->|"finds a problem"| G1
+        G2 -->|"clean"| G3["HUMAN<br/>reads it before it counts"]
+    end
+
+    BAD ~~~ GOOD
+
+    classDef bad fill:#ffd6d6,stroke:#c62828,stroke-width:2px,color:#b71c1c
+    classDef good fill:#d4f8d4,stroke:#2e7d32,stroke-width:2px,color:#1b5e20
+    classDef human fill:#fff3cd,stroke:#f57f17,stroke-width:2px,color:#e65100
+    class B1,B2,B3 bad
+    class G1,G2 good
+    class G3 human

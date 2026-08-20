@@ -1,0 +1,29 @@
+%% Loop cycle - BLANK TEMPLATE
+%% One lap of the loop. Fill each ______, then read it out loud. If a step has no answer, the loop will stall there.
+flowchart TB
+    T["TRIGGER<br/>runs every: ______<br/>(daily 8am / on push / on demand)"]
+    R["READ STATE<br/>memory file: ______<br/>what it remembers: ______"]
+    S["SCAN<br/>where it looks: ______<br/>what counts as a finding: ______"]
+    D{"ANYTHING FOUND?"}
+    Z["ARCHIVE<br/>log the quiet run, stop"]
+    I["ISOLATE<br/>separate copy of the work: ______"]
+    M["MAKER<br/>agent that does the work: ______<br/>instructions file: ______"]
+    C["CHECKER<br/>DIFFERENT agent that reviews: ______<br/>what it must verify: ______"]
+    V{"CHECKER APPROVES?"}
+    A["ACT<br/>real-world action: ______<br/>(open PR / send draft / update ticket)"]
+    H["HUMAN INBOX<br/>where you review it: ______"]
+    W["WRITE STATE<br/>what gets saved for next lap: ______"]
+
+    T --> R --> S --> D
+    D -->|no| Z --> W
+    D -->|yes| I --> M --> C --> V
+    V -->|no| M
+    V -->|yes| A --> H --> W
+    W -.->|"next lap"| T
+
+    classDef step fill:#eeeeee,stroke:#9e9e9e,stroke-dasharray:5 3,color:#424242
+    classDef human fill:#fff3cd,stroke:#f57f17,stroke-width:2px,color:#e65100
+    classDef guard fill:#cceeff,stroke:#0277bd,stroke-width:2px,color:#01579b
+    class T,R,S,I,M,A,Z,W step
+    class H human
+    class C,D,V guard

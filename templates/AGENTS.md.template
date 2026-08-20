@@ -1,0 +1,28 @@
+# AGENTS.md — ______
+
+<!-- Keep under 60 lines. Every line here was earned by something going wrong.
+     A rule you cannot trace to an incident is a rule you should delete. -->
+
+## What this project is
+______ (one sentence a stranger would understand)
+
+## How to run things
+- Install: `______`
+- Test: `______`
+- Build / deploy: `______`
+
+## Conventions
+- ______
+- ______
+
+## Never touch
+- ______
+- ______
+
+## Before you say you're done
+- [ ] `______` passes
+- [ ] ______
+
+## Learned the hard way
+<!-- date | what broke | the rule -->
+- ______ | ______ | ______
