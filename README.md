@@ -1,10 +1,36 @@
 # Agent Harness & Loop Kit
 
-Fill-in-the-blank templates for designing an AI agent harness and the loop that runs it — **without writing code**.
+Two fill-in-the-blank canvases for designing an AI agent and the loop that runs it — **without writing code**.
 
-Based on Addy Osmani's [Agent Harness Engineering](https://addyosmani.com/blog/agent-harness-engineering/) and [Loop Engineering](https://addyosmani.com/blog/loop-engineering/). The essays explain the ideas; this repo turns them into blanks you can fill on a Tuesday afternoon.
+Based on Addy Osmani's [Agent Harness Engineering](https://addyosmani.com/blog/agent-harness-engineering/) and [Loop Engineering](https://addyosmani.com/blog/loop-engineering/). The essays explain the ideas; this repo turns them into boxes you fill in on a Tuesday afternoon.
 
-**No install. No account. No code.** Markdown files and Mermaid diagrams that GitHub draws for you.
+**No install. No account. No code.**
+
+---
+
+## The canvases
+
+Open [`canvas/index.html`](canvas/index.html) in any browser — double-click the file, that's it. Works offline.
+
+- Type straight into the boxes; your text saves in that browser
+- **Show a filled example** fills both canvases with a worked example so you can see what "done" looks like
+- **Print / Save as PDF** gives you one A3 landscape sheet per canvas, ready for a pen
+
+Prefer plain text? The same two canvases live as Markdown in [`templates/`](templates/).
+
+```
+CANVAS 01 — THE HARNESS          what the agent reads, may touch, may never do
+  1 Prompting   2 Tools   3 Infrastructure   4 Knowledge
+  5 Context     6 Loop
+  7 Guardrails — what it can never do
+  ↻ The Ratchet — mistakes turned into rules
+
+CANVAS 02 — THE LOOP             what makes it run without you
+  1 Trigger     2 State   3 Isolation        4 Skills
+  5 Maker & Checker        6 Connectors
+  7 Human gate — the part that never automates
+  ↻ One lap, on paper, before you build anything
+```
 
 ---
 
@@ -13,13 +39,13 @@ Based on Addy Osmani's [Agent Harness Engineering](https://addyosmani.com/blog/a
 | Step | File | Time |
 |---|---|---|
 | 1. Read the method | [`GUIDE.md`](GUIDE.md) | 10 min |
-| 2. Design the harness | [`templates/harness-canvas.md`](templates/harness-canvas.md) | 30 min |
+| 2. Design the harness | [`canvas/index.html`](canvas/index.html), Canvas 01 | 30 min |
 | 3. Draw it | [`diagrams/harness-anatomy.mmd`](diagrams/harness-anatomy.mmd) → paste into [mermaid.live](https://mermaid.live) | 10 min |
 
 > Only the `.mmd` files are diagram source. The canvases in `templates/` are Markdown worksheets — mermaid.live will reject them.
 
 | 4. Run it by hand ten times | — | a week |
-| 5. Design the loop | [`templates/loop-canvas.md`](templates/loop-canvas.md) | 30 min |
+| 5. Design the loop | [`canvas/index.html`](canvas/index.html), Canvas 02 | 30 min |
 | 6. See it done | [`examples/filled-loop-canvas.md`](examples/filled-loop-canvas.md) | 5 min |
 
 Step 4 is not optional and not a formality. The rules that make a harness work are the ones you write *after* watching it fail.
@@ -90,6 +116,7 @@ flowchart TB
 ## What's in the box
 
 ```
+canvas/index.html               the two canvases, fillable and printable
 GUIDE.md                        the method, six steps, no code
 templates/
   harness-canvas.md             7 sections - what the agent reads, uses, and may never do

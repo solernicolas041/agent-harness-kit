@@ -1,0 +1,440 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Harness &amp; Loop Canvas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --paper:#e9ecf0;
+  --sheet:#ffffff;
+  --ink:#14181f;
+  --ink-soft:#4a5361;
+  --muted:#8a949f;
+  --rule:#cfd6de;
+  --rule-soft:#e6eaf0;
+  --grid:rgba(20,24,31,.05);
+  --accent:#0a6ebd;
+  --accent-soft:#e6f0fa;
+  --human:#a06a10;
+  --human-soft:#fdf3e0;
+  --have:#2f7d32;
+  --written:#12408a;
+  --shadow:0 1px 2px rgba(20,24,31,.06), 0 10px 30px -20px rgba(20,24,31,.4);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0d1015;--sheet:#161b22;--ink:#e7ecf2;--ink-soft:#b3bdc9;--muted:#7f8b98;
+    --rule:#2c343f;--rule-soft:#212832;--grid:rgba(231,236,242,.05);
+    --accent:#5aa9ea;--accent-soft:#12283a;--human:#e0b063;--human-soft:#2a2116;--have:#7cc47f;
+    --written:#8ec5f5;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 34px -22px rgba(0,0,0,.95);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0d1015;--sheet:#161b22;--ink:#e7ecf2;--ink-soft:#b3bdc9;--muted:#7f8b98;
+  --rule:#2c343f;--rule-soft:#212832;--grid:rgba(231,236,242,.05);
+  --accent:#5aa9ea;--accent-soft:#12283a;--human:#e0b063;--human-soft:#2a2116;--have:#7cc47f;
+  --written:#8ec5f5;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 34px -22px rgba(0,0,0,.95);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background-color:var(--paper);
+  background-image:
+    repeating-linear-gradient(to right, var(--grid) 0 1px, transparent 1px 26px),
+    repeating-linear-gradient(to bottom, var(--grid) 0 1px, transparent 1px 26px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1500px;margin:0 auto;padding:clamp(1rem,3vw,2.5rem) clamp(.75rem,3vw,2rem) 5rem}
+
+h1,h2{font-family:"IBM Plex Sans Condensed", sans-serif;margin:0;line-height:1.1;text-wrap:balance}
+h1{font-size:clamp(2rem,5vw,3.1rem);font-weight:700;letter-spacing:-.01em}
+h2{font-size:clamp(1.35rem,3vw,1.85rem);font-weight:600}
+p{margin:0}
+a{color:var(--accent)}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:.68rem;font-weight:500;letter-spacing:.17em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- page header ---------- */
+.topbar{display:flex;flex-wrap:wrap;gap:1.25rem;align-items:flex-end;justify-content:space-between;padding-bottom:1.25rem;border-bottom:2px solid var(--ink)}
+.topbar .lede{color:var(--ink-soft);max-width:52ch;margin-top:.5rem}
+.actions{display:flex;gap:.5rem;flex-wrap:wrap}
+button.act{
+  font-family:"IBM Plex Mono",monospace;font-size:.74rem;letter-spacing:.04em;
+  background:var(--sheet);color:var(--ink);border:1px solid var(--rule);
+  border-radius:2px;padding:.5rem .85rem;cursor:pointer;transition:border-color .15s,color .15s;
+}
+button.act:hover{border-color:var(--accent);color:var(--accent)}
+button.act:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button.act.primary{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+button.act.primary:hover{opacity:.85;color:var(--sheet)}
+button.act[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+
+.howto{
+  display:flex;gap:.6rem 1.4rem;flex-wrap:wrap;align-items:baseline;
+  font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--ink-soft);
+  padding:.8rem 0 0;
+}
+.howto b{color:var(--accent);font-weight:600}
+
+/* ---------- canvas frame ---------- */
+.canvas-block{margin-top:2.75rem;display:flex;flex-direction:column;gap:.9rem}
+.canvas-head{display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;align-items:baseline;justify-content:space-between}
+.canvas-head .sub{color:var(--ink-soft);font-size:.95rem;max-width:60ch}
+
+.idbar{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0;
+  border:1.5px solid var(--ink);border-bottom:0;background:var(--sheet);
+}
+.idbar .idcell{padding:.6rem .85rem;border-right:1px solid var(--rule)}
+.idbar .idcell:last-child{border-right:0}
+.idbar label{display:block;font-family:"IBM Plex Mono",monospace;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.15rem}
+
+/* the grid: 7 blocks + ratchet, Business-Model-Canvas style */
+.grid{
+  display:grid;gap:0;border:1.5px solid var(--ink);background:var(--rule);
+  grid-template-columns:repeat(4,1fr);
+}
+.grid > .cell{background:var(--sheet);border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);min-height:190px}
+.cell{display:flex;flex-direction:column;padding:.75rem .85rem .85rem;gap:.4rem}
+.cell-head{display:flex;gap:.5rem;align-items:baseline}
+.cell-n{
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;font-weight:600;color:#fff;background:var(--ink);
+  border-radius:2px;padding:.05rem .35rem;flex:none;font-variant-numeric:tabular-nums;
+}
+.cell-t{font-family:"IBM Plex Sans Condensed",sans-serif;font-weight:600;font-size:1rem;line-height:1.2}
+.cell-q{font-size:.83rem;color:var(--ink-soft);font-style:italic}
+.cell-hint{font-family:"IBM Plex Mono",monospace;font-size:.66rem;line-height:1.7;color:var(--muted)}
+
+/* the writable area — ruled like a form */
+.fill{
+  flex:1;min-height:74px;margin-top:.15rem;padding:.15rem .1rem;
+  font-family:"IBM Plex Mono",monospace;font-size:.8rem;line-height:26px;
+  color:var(--written);
+  background-image:repeating-linear-gradient(to bottom, transparent 0 25px, var(--rule-soft) 25px 26px);
+  outline:0;white-space:pre-wrap;overflow-wrap:anywhere;
+}
+.fill:focus{background-color:var(--accent-soft)}
+.fill:empty::before{content:attr(data-ph);color:var(--muted);font-style:italic;opacity:.75}
+
+/* accents on the two cells that carry the most weight */
+.cell.gate{background:var(--human-soft)}
+.cell.gate .cell-n{background:var(--human)}
+.cell.ratchet{background:var(--accent-soft)}
+.cell.ratchet .cell-n{background:var(--accent)}
+
+/* wide blocks: the two that need room to actually write in */
+.grid > .wide{grid-column:span 2}
+.grid > .full{grid-column:1 / -1}
+
+/* loop layout: reads as a lap, numbers carry the order */
+.grid.loop > .cell{min-height:180px}
+.lapbar{
+  border:1.5px solid var(--ink);border-top:0;background:var(--ink);color:var(--sheet);
+  font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:.5rem .85rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+}
+
+@media (max-width:1080px){ .grid{grid-template-columns:repeat(2,1fr)} .grid > .wide{grid-column:span 2} }
+@media (max-width:620px){ .grid{grid-template-columns:1fr} .grid > .wide,.grid > .full{grid-column:span 1} }
+
+/* ---------- print: one canvas per landscape sheet ---------- */
+@media print{
+  @page{size:A3 landscape;margin:8mm}
+  :root{--paper:#fff;--sheet:#fff;--ink:#000;--ink-soft:#333;--muted:#666;--rule:#999;--rule-soft:#ddd;
+        --accent:#000;--accent-soft:#fff;--human-soft:#fff;--written:#000;--grid:transparent;--shadow:none}
+  body{background:#fff}
+  .no-print{display:none !important}
+  .canvas-block{margin-top:0;page-break-after:always;break-after:page}
+  .canvas-block:last-of-type{page-break-after:auto;break-after:auto}
+  .grid > .cell{min-height:150px}
+  .fill{background-image:repeating-linear-gradient(to bottom, transparent 0 25px, #ccc 25px 26px)}
+}
+
+@media (prefers-reduced-motion: reduce){*{transition:none !important}}
+
+footer{margin-top:3.5rem;padding-top:1.5rem;border-top:1px solid var(--rule);color:var(--muted);font-size:.88rem;display:flex;flex-direction:column;gap:.4rem}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+
+<div class="topbar no-print">
+  <div>
+    <p class="eyebrow">Fill-in canvases · after Addy Osmani</p>
+    <h1>Harness &amp; Loop Canvas</h1>
+    <p class="lede">Two blank canvases for designing an AI agent and the loop that runs it. Write straight into the boxes, or print them and use a pen. No code, no account.</p>
+  </div>
+  <div class="actions">
+    <button class="act" type="button" id="example" aria-pressed="false">Show a filled example</button>
+    <button class="act" type="button" id="clear">Clear</button>
+    <button class="act primary" type="button" id="print">Print / Save as PDF</button>
+  </div>
+</div>
+
+<div class="howto no-print">
+  <span><b>1.</b> Click any box and type.</span>
+  <span><b>2.</b> Your text saves in this browser.</span>
+  <span><b>3.</b> A box you can't fill is a gap in your design, not a formatting problem.</span>
+  <span><b>4.</b> Leave §1 rules empty on day one — you haven't made the mistakes yet.</span>
+</div>
+
+<!-- ============================ HARNESS ============================ -->
+<div class="canvas-block">
+  <div class="canvas-head">
+    <div>
+      <p class="eyebrow">Canvas 01</p>
+      <h2>The Harness</h2>
+    </div>
+    <p class="sub">Everything around the AI: what it reads, what it may touch, what it may never do. The model is the engine. This is the car.</p>
+  </div>
+
+  <div class="idbar">
+    <div class="idcell"><label>Agent name</label><div class="fill" contenteditable="true" data-k="h-name" data-ph="give it a name" style="min-height:30px;background-image:none"></div></div>
+    <div class="idcell"><label>The one job it does</label><div class="fill" contenteditable="true" data-k="h-job" data-ph="one job, with a beginning and an end" style="min-height:30px;background-image:none"></div></div>
+    <div class="idcell"><label>Date</label><div class="fill" contenteditable="true" data-k="h-date" data-ph="today" style="min-height:30px;background-image:none"></div></div>
+  </div>
+
+  <div class="grid harness">
+
+    <div class="cell">
+      <div class="cell-head"><span class="cell-n">1</span><span class="cell-t">Prompting</span></div>
+      <p class="cell-q">What does it read every single time?</p>
+      <p class="cell-hint">rules file · under 60 lines · 3 rules earned from a real failure</p>
+      <div class="fill" contenteditable="true" data-k="h1" data-ph="rules file:"></div>
+    </div>
+
+    <div class="cell">
+      <div class="cell-head"><span class="cell-n">2</span><span class="cell-t">Tools</span></div>
+      <p class="cell-q">What is it allowed to touch?</p>
+      <p class="cell-hint">list them · keep under ten · one you removed because it confused it</p>
+      <div class="fill" contenteditable="true" data-k="h2" data-ph="tool —  what for:"></div>
+    </div>
+
+    <div class="cell">
+      <div class="cell-head"><span class="cell-n">3</span><span class="cell-t">Infrastructure</span></div>
+      <p class="cell-q">Where does it work?</p>
+      <p class="cell-hint">folder · can it undo its own damage · what it must never reach</p>
+      <div class="fill" contenteditable="true" data-k="h3" data-ph="works in:"></div>
+    </div>
+
+    <div class="cell">
+      <div class="cell-head"><span class="cell-n">4</span><span class="cell-t">Knowledge</span></div>
+      <p class="cell-q">What does it know without being told?</p>
+      <p class="cell-hint">file where project facts live · who adds to it, when</p>
+      <div class="fill" contenteditable="true" data-k="h4" data-ph="facts live in:"></div>
+    </div>
+
+    <div class="cell wide">
+      <div class="cell-head"><span class="cell-n">5</span><span class="cell-t">Context</span></div>
+      <p class="cell-q">What happens when it fills up?</p>
+      <p class="cell-hint">what gets summarised first · where big outputs get parked · the one file that must survive a full reset</p>
+      <div class="fill" contenteditable="true" data-k="h5" data-ph="summarise first:"></div>
+    </div>
+
+    <div class="cell wide">
+      <div class="cell-head"><span class="cell-n">6</span><span class="cell-t">Loop</span></div>
+      <p class="cell-q">When does it run, and when is it done?</p>
+      <p class="cell-hint">trigger · "done" means · give-up condition — then fill Canvas 02</p>
+      <div class="fill" contenteditable="true" data-k="h6" data-ph="runs when:"></div>
+    </div>
+
+    <div class="cell gate full">
+      <div class="cell-head"><span class="cell-n">7</span><span class="cell-t">Guardrails — what it can never do</span></div>
+      <p class="cell-q">Write the thing that would actually hurt if it happened. Everything here becomes a wall.</p>
+      <p class="cell-hint">blocked action → what happens instead · the automatic check that must pass before it may say "done" · success is silent, failure is loud</p>
+      <div class="fill" contenteditable="true" data-k="h7" data-ph="never:"></div>
+    </div>
+
+    <div class="cell ratchet full">
+      <div class="cell-head"><span class="cell-n">↻</span><span class="cell-t">The Ratchet — mistakes turned into rules</span></div>
+      <p class="cell-q">This box is the whole method. A harness gets good by collecting scars, not by being designed well on day one.</p>
+      <p class="cell-hint">date · what went wrong · the rule it became · where that rule now lives</p>
+      <div class="fill" contenteditable="true" data-k="h8" data-ph="a mistake is only allowed to happen once"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================= LOOP ============================= -->
+<div class="canvas-block">
+  <div class="canvas-head">
+    <div>
+      <p class="eyebrow">Canvas 02</p>
+      <h2>The Loop</h2>
+    </div>
+    <p class="sub">What makes the harness run without you typing anything. Boxes are numbered in the order one lap runs.</p>
+  </div>
+
+  <div class="idbar">
+    <div class="idcell"><label>Loop name</label><div class="fill" contenteditable="true" data-k="l-name" data-ph="name it" style="min-height:30px;background-image:none"></div></div>
+    <div class="idcell"><label>It exists so I stop doing</label><div class="fill" contenteditable="true" data-k="l-job" data-ph="the chore it replaces" style="min-height:30px;background-image:none"></div></div>
+    <div class="idcell"><label>Date</label><div class="fill" contenteditable="true" data-k="l-date" data-ph="today" style="min-height:30px;background-image:none"></div></div>
+  </div>
+
+  <div class="grid loop">
+
+    <div class="cell">
+      <div class="cell-head"><span class="cell-n">1</span><span class="cell-t">Trigger</span></div>
+      <p class="cell-q">What starts it, without me?</p>
+      <p class="cell-hint">runs every · the instruction, word for word · longest it may run</p>
+      <div class="fill" contenteditable="true" data-k="l1" data-ph="runs every:"></div>
+    </div>
+
+    <div class="cell">
+      <div class="cell-head"><span class="cell-n">2</span><span class="cell-t">State</span></div>
+      <p class="cell-q">Where does it remember, between runs?</p>
+      <p class="cell-hint">memory file · what it records · what it must never record</p>
+      <div class="fill" contenteditable="true" data-k="l2" data-ph="memory file:"></div>
+    </div>
+
+    <div class="cell">
+      <div class="cell-head"><span class="cell-n">3</span><span class="cell-t">Isolation</span></div>
+      <p class="cell-q">How do two runs avoid each other?</p>
+      <p class="cell-hint">each run gets its own copy of · what they would collide over · cleanup</p>
+      <div class="fill" contenteditable="true" data-k="l3" data-ph="own copy of:"></div>
+    </div>
+
+    <div class="cell">
+      <div class="cell-head"><span class="cell-n">4</span><span class="cell-t">Skills</span></div>
+      <p class="cell-q">What am I tired of re-explaining?</p>
+      <p class="cell-hint">knowledge file → the explanation it replaces · the thing it keeps getting wrong</p>
+      <div class="fill" contenteditable="true" data-k="l4" data-ph="stop explaining:"></div>
+    </div>
+
+    <div class="cell wide">
+      <div class="cell-head"><span class="cell-n">5</span><span class="cell-t">Maker &amp; Checker</span></div>
+      <p class="cell-q">Two agents. An AI asked to grade its own work will pass itself, every time.</p>
+      <p class="cell-hint">maker: who, and its instructions · checker: a DIFFERENT agent, fresh, told to prove the maker wrong · what happens if they disagree twice</p>
+      <div class="fill" contenteditable="true" data-k="l5" data-ph="maker:"></div>
+    </div>
+
+    <div class="cell wide">
+      <div class="cell-head"><span class="cell-n">6</span><span class="cell-t">Connectors</span></div>
+      <p class="cell-q">Where does it touch the real world?</p>
+      <p class="cell-hint">connector → the action it can take → reversible yes/no · anything "no" needs a human first</p>
+      <div class="fill" contenteditable="true" data-k="l6" data-ph="can open a PR / send a draft / update a ticket:"></div>
+    </div>
+
+    <div class="cell gate full">
+      <div class="cell-head"><span class="cell-n">7</span><span class="cell-t">Human gate — the part that never automates</span></div>
+      <p class="cell-q">A loop running unattended is a loop making mistakes unattended.</p>
+      <p class="cell-hint">where finished work lands for me · actions that are NEVER automatic · how I find out the loop died quietly</p>
+      <div class="fill" contenteditable="true" data-k="l7" data-ph="lands for me in:"></div>
+    </div>
+
+    <div class="cell ratchet full">
+      <div class="cell-head"><span class="cell-n">↻</span><span class="cell-t">One lap, on paper, before you build anything</span></div>
+      <p class="cell-q">Walk it through in writing. Then answer the last question honestly — you already know the answer.</p>
+      <p class="cell-hint">trigger fires → reads state → scans → isolates → maker → checker → acts → my inbox → writes state · where does this break first? · cost of one lap</p>
+      <div class="fill" contenteditable="true" data-k="l8" data-ph="1. trigger fires at"></div>
+    </div>
+
+  </div>
+  <div class="lapbar">
+    <span>↻ then it writes what it learned, and waits for the next trigger</span>
+    <span>the loop proposes · you decide</span>
+  </div>
+</div>
+
+<footer>
+  <p><strong>Build the loop. Stay the engineer.</strong></p>
+  <p class="no-print">Canvases derived from Addy Osmani's <a href="https://addyosmani.com/blog/agent-harness-engineering/">Agent Harness Engineering</a> and <a href="https://addyosmani.com/blog/loop-engineering/">Loop Engineering</a>. MIT.</p>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var cells = Array.prototype.slice.call(document.querySelectorAll('.fill[data-k]'));
+  var KEY = 'harness-loop-canvas.v1';
+
+  function store(obj) { try { localStorage.setItem(KEY, JSON.stringify(obj)); } catch (e) { /* sandboxed: no persistence, still usable */ } }
+  function load() { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { return {}; } }
+
+  function snapshot() {
+    var out = {};
+    cells.forEach(function (c) { if (c.innerText.trim()) out[c.dataset.k] = c.innerText; });
+    return out;
+  }
+  function apply(data) {
+    cells.forEach(function (c) { c.innerText = data[c.dataset.k] || ''; });
+  }
+
+  apply(load());
+  cells.forEach(function (c) {
+    c.addEventListener('input', function () { store(snapshot()); });
+  });
+
+  /* paste as plain text, so pasting from a doc doesn't drag styling in */
+  cells.forEach(function (c) {
+    c.addEventListener('paste', function (e) {
+      e.preventDefault();
+      var t = (e.clipboardData || window.clipboardData).getData('text');
+      document.execCommand('insertText', false, t);
+    });
+  });
+
+  /* a deliberately boring example: keeping a blog's links from rotting */
+  var EXAMPLE = {
+    'h-name': 'link-rot patrol',
+    'h-job': 'find links on my blog that no longer load',
+    'h-date': 'day one',
+    h1: 'rules file: AGENTS.md, 22 lines\nrules earned so far: none — I have not run it yet',
+    h2: 'read a post file\nopen a URL and see if it loads\nopen a pull request\n\n3 tools. Removed "search the web" — it wandered.',
+    h3: 'works in: a copy of the blog repo\nundo: yes, everything is a branch I can delete\nnever reaches: anything outside /posts',
+    h4: 'facts live in: skills/blog-conventions.md\nposts are Markdown, links look like [text](url)\nI add a line whenever I explain something twice',
+    h5: 'summarise first: the list of posts already checked\nbig outputs parked in: findings.md\nsurvives a reset: state.md',
+    h6: 'runs when: Monday 7am\ndone means: every post checked once this week\ngives up after: 20 minutes',
+    h7: 'never merges to the live site — only I do that\nnever deletes a post\nnever edits anything outside /posts\n\nbefore "done": every replacement URL must actually load',
+    h8: 'week 1 | it deleted dead links instead of archiving them | dead link -> find an archive snapshot first, only then delete | skills/replacement-policy.md\nweek 2 | it claimed done with 60 posts unchecked | "done" = the count in state.md reaches 200 | AGENTS.md',
+    'l-name': 'link-rot patrol',
+    'l-job': 'clicking through 200 old posts every few months',
+    'l-date': 'day one',
+    l1: 'runs every: Monday, 7am\ninstruction: "Check every external link in /posts. List the ones that no longer load."\nlongest run: 20 minutes',
+    l2: 'memory file: state.md at the repo root\nrecords: posts checked, dead links found, links already fixed\nnever records: nothing sensitive — it is a public blog',
+    l3: 'own copy of: the repo, on a branch named linkrot/<date>\nwould collide over: state.md\ncleanup: branch deleted once merged or rejected',
+    l4: 'skills/blog-conventions.md -> how posts are written\nskills/replacement-policy.md -> archive before deleting\n\nkeeps getting wrong: deleting instead of archiving',
+    l5: 'maker: agent "fixer" — swap dead links per the replacement policy\nchecker: agent "auditor", fresh session — opens every replacement and confirms it loads and matches the old link text. Never sees the maker\'s reasoning.\ndisagree twice: leave the link alone, flag it for me',
+    l6: 'GitHub -> open a pull request -> reversible: yes\nGitHub -> merge to the live site -> reversible: NO, so I do it, never the loop',
+    l7: 'lands for me in: a pull request titled "link rot — week of X"\nexpires unreviewed after 14 days\nnever automatic: merging, deleting a post, editing outside /posts\nI find out it broke when: no PR and no "all clean" note by Monday noon',
+    l8: '1. trigger fires Monday 7am\n2. reads state: 140 of 200 posts checked\n3. scans the remaining 60, finds 4 dead links\n4. opens branch linkrot/2026-08-19\n5. maker swaps 4 links for archive snapshots\n6. checker opens all 4, rejects 1 (the snapshot is itself a 404)\n7. opens a PR with 3 fixes, flags the 4th\n8. lands in my inbox as a GitHub PR\n9. writes state: 200/200 checked, 1 unresolved\n\nbreaks first: archive.org rate-limits and the checker calls good links dead\ncost of one lap: a few cents, and 2 minutes of my Monday'
+  };
+
+  var exBtn = document.getElementById('example');
+  var mine = null;
+  exBtn.addEventListener('click', function () {
+    var on = exBtn.getAttribute('aria-pressed') === 'true';
+    if (on) {
+      apply(mine || {});
+      exBtn.setAttribute('aria-pressed', 'false');
+      exBtn.textContent = 'Show a filled example';
+    } else {
+      mine = snapshot();
+      apply(EXAMPLE);
+      exBtn.setAttribute('aria-pressed', 'true');
+      exBtn.textContent = 'Back to my canvas';
+    }
+  });
+
+  document.getElementById('clear').addEventListener('click', function () {
+    if (!confirm('Clear both canvases?')) return;
+    apply({});
+    mine = null;
+    exBtn.setAttribute('aria-pressed', 'false');
+    exBtn.textContent = 'Show a filled example';
+    store({});
+  });
+
+  document.getElementById('print').addEventListener('click', function () { window.print(); });
+})();
+</script>
+
+</body>
+</html>
